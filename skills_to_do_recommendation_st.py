@@ -1,6 +1,8 @@
 import pandas as pd
 import joblib
 import streamlit as st
+import zipfile
+import os
 
 st.title("Welcome to Skill_to_Company Recommender")
 name = st.text_input("Enter your name:")
@@ -11,6 +13,9 @@ Menu = st.sidebar.selectbox(
     "navigate",
     ["Home", "Predict", "About", "Contact"]
 )
+if not os.path.exists("skills_model.pkl"):
+    with zipfile.Zipfile("skills_model.pkl.zip", 'r') as zip_ref:
+        zip_ref.extractall(".")
 model = joblib.load("C:/users/lenovo/Desktop/skill.py/skills_model.pkl")
 encoder = ("C:/users/lenovo/Desktop/skill.py/skills_encoder.pkl")
 
@@ -49,4 +54,5 @@ if st.button("Recommended company"):
     converted = encoder.transform(sample_input)
     make_recommendation = model.predict(converted)
     st.success(f"\nRecommended Company:", make_recommendation[0])
+
 
