@@ -16,8 +16,8 @@ Menu = st.sidebar.selectbox(
 if not os.path.exists("skills_model.pkl"):
     with zipfile.Zipfile("skills_model.pkl.zip", 'r') as zip_ref:
         zip_ref.extractall(".")
-model = joblib.load("C:/users/lenovo/Desktop/skill.py/skills_model.pkl")
-encoder = ("C:/users/lenovo/Desktop/skill.py/skills_encoder.pkl")
+model = joblib.load("skills_model.pkl")
+encoder = ("skills_encoder.pkl")
 
 age = st.number_input("Age: ")
 skill = st.text_input("Skill_Acquired: ")
@@ -54,5 +54,6 @@ if st.button("Recommended company"):
     converted = encoder.transform(sample_input)
     make_recommendation = model.predict(converted)
     st.success(f"\nRecommended Company:", make_recommendation[0])
+
 
 
